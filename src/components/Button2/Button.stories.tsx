@@ -39,11 +39,10 @@ export const Primary = (args: args) => {
 }
 export const ButtonWithIcon = (args: args) => {
   const { button, buttonContent, buttonIcon }= args;
-  button.styleType = 'primary'
-  // buttonIcon.icon = AtSign
+
   return (
-    <Button.Root styleType={button.styleType} {...button}>
-      <Button.Icon icon={AtSign}/>
+    <Button.Root styleType={button.styleType} className='group' {...button}>
+      <Button.Icon icon={AtSign} className='group-hover:text-red-700' />
       <Button.Content {...buttonContent} />
     </Button.Root>
   )
