@@ -7,6 +7,6 @@ export interface ButtonContentProps {
 }
 export function ButtonContent({ children, className }: ButtonContentProps) {
     return (
-        <label className={twMerge('', className)}>{children}</label>
+        <label className={twMerge('cursor-pointer group-disabled:cursor-not-allowed', className)}>{children}</label>
     )
 }

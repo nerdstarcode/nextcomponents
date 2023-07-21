@@ -28,11 +28,21 @@ export default {
 } as Meta<args>;
 
 
-export const Primary = (args: args) => {
+export const ButtonDefault = (args: args) => {
   const { button, buttonIcon, buttonContent }: args = args;
   button.styleType = 'primary'
   return (
     <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+
+export const ButtonDisable = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'primary'
+  return (
+    <Button.Root styleType={button.styleType} disabled {...button}>
       <Button.Content {...buttonContent} />
     </Button.Root>
   )
@@ -43,6 +53,15 @@ export const ButtonWithIcon = (args: args) => {
   return (
     <Button.Root styleType={button.styleType} className='group' {...button}>
       <Button.Icon icon={AtSign} className='group-hover:text-red-700' />
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Primary = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'primary'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
       <Button.Content {...buttonContent} />
     </Button.Root>
   )

@@ -7,6 +7,6 @@ export interface ButtonIconsProps {
 }
 export function ButtonIcons({ icon: Icon, className }: ButtonIconsProps) {
     return (
-        <Icon className={twMerge('', className)} />
+        <Icon className={twMerge('group-disabled:cursor-not-allowed', className)} />
     )
 }
