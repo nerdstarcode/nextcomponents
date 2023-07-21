@@ -1,12 +1,12 @@
 import { ElementType } from "react"
 import { twMerge } from "tailwind-merge";
 
-export interface ButtonIconsProps{
-    Icon: ElementType;
+export interface ButtonIconsProps {
+    icon: ElementType;
     className?: string;
 }
-export function ButtonIcons({Icon, className}: ButtonIconsProps){
-    return(
-        <Icon className={twMerge('', className)}/>
+export function ButtonIcons({ icon: Icon, className }: ButtonIconsProps) {
+    return (
+        <Icon className={twMerge('', className)} />
     )
 }

@@ -7,9 +7,9 @@ import { ButtonContentProps } from './Compositions/ButtonContent';
 import { AtSign } from 'lucide-react';
 
 interface args {
-  button: ButtonProps
-  buttonIcon: ButtonIconsProps
-  buttonContent: ButtonContentProps
+  button: ButtonProps;
+  buttonContent: ButtonContentProps;
+  buttonIcon: ButtonIconsProps;
 }
 const typeButton = { submit: 'submit', button: 'button', reset: 'reset' };
 export default {
@@ -17,63 +17,103 @@ export default {
   component: Button.Root,
   args: {
     button: {
-      styleType: 'primary'
+      styleType: 'primary',
+      widthStyle: 'full'
     },
     buttonContent: {
       children: 'eu sou um botão'
     }
   },
-  argTypes: {
-    buttonContent: {
 
-    },
-    button: {
-      onClick: { action: 'clicked' },
-      onMouseOver: { action: 'hovered' },
-      id: {
-        description: 'Id do elemento html',
-      },
-      styleType: {
-        description: 'Estilo do botão',
-        options: ['primary', 'secondary'],
-        control: {
-          type: 'inline-radio',
-        }
-      },
-      children: {
-        description: 'Uma forma de adicionar ícones de uma forma mais flexivel',
-      },
-      widthStyle: {
-        description: 'Uma forma de deixar os botões mais editáveis sem precisar de mais divs',
-        control: {
-          type: 'inline-radio',
-        }
-      }
-    }
-  }
 } as Meta<args>;
 
 
-{/* @ts-ignore  */ }
-export const Primary: StoryObj<args> = (args: args) => {
-  const {button, buttonIcon, buttonContent}:args = args;
+export const Primary = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
   button.styleType = 'primary'
   return (
     <Button.Root styleType={button.styleType} {...button}>
-      {/* @ts-ignore  */}
-      {buttonIcon?.Icon ? <Button.Icon {...buttonIcon} /> : null}
       <Button.Content {...buttonContent} />
     </Button.Root>
   )
 }
-{/* @ts-ignore  */ }
-export const Secondary: StoryObj<args> = (args: args) => {
-  const {button, buttonIcon, buttonContent}:args = args;
-  button.styleType = 'secondary'
+export const ButtonWithIcon = (args: args) => {
+  const { button, buttonContent, buttonIcon }= args;
+  button.styleType = 'primary'
+  // buttonIcon.icon = AtSign
   return (
     <Button.Root styleType={button.styleType} {...button}>
-      {/* @ts-ignore  */}
-      {buttonIcon?.Icon ? <Button.Icon {...buttonIcon} /> : null}
+      <Button.Icon icon={AtSign}/>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Secondary = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'secondary'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Default = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'default'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Neutral = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'neutral'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Info = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'info'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Success = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'success'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Warning = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'warning'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
+      <Button.Content {...buttonContent} />
+    </Button.Root>
+  )
+}
+export const Danger = (args: args) => {
+  const { button, buttonIcon, buttonContent }: args = args;
+  button.styleType = 'danger'
+  button.widthStyle = 'full'
+  return (
+    <Button.Root styleType={button.styleType} {...button}>
       <Button.Content {...buttonContent} />
     </Button.Root>
   )
