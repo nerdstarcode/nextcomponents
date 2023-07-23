@@ -29,7 +29,7 @@ interface ButtonPropsStory extends ButtonContentProps, ButtonProps, ButtonIconsP
   describtion: string[]
 }
 const meta: Meta<ButtonPropsStory> = {
-  title: 'Button/MainComponent',
+  title: 'Button/Button',
   // @ts-ignore
   component: Button.Root,
   subcomponents: {
@@ -60,6 +60,7 @@ ButtonPropsSchema
 export const ButtonPrimary: Story = {
   render: (args) =>
     <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
       <Button.Content children={args.children} className={args.className?.[1]} />
     </Button.Root>,
   args: {
@@ -74,6 +75,26 @@ export const ButtonPrimary: Story = {
     },
   },
 };
+export const ButtonSecondary: Story = {
+  render: (args) =>
+    <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
+      <Button.Content children={args.children} className={args.className?.[1]} />
+    </Button.Root>,
+  args: {
+    styleType: 'secondary',
+    icon: AtSign,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: StorieMarkdown.Secondary,
+      },
+    },
+  },
+};
+
+
 export const ButtonWithIcon: Story = {
   render: (args) =>
     <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
