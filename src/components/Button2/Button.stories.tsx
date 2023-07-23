@@ -83,5 +83,4 @@ export const ButtonWithIcon: Story = {
   args: {
     icon: AtSign,
   },
-
 };
