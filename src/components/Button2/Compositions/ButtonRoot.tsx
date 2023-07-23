@@ -1,12 +1,21 @@
 import { ButtonHTMLAttributes } from "react";
 import { clsx } from 'clsx'
 import { twMerge } from "tailwind-merge";
+import { z } from "zod";
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   styleType?: 'primary' | 'secondary' | 'default' | 'neutral' | 'info' | 'success' | 'warning' | 'danger';
   widthStyle?: 'full' | 'fit';
   className?: string;
 }
-
+export const ButtonPropsSchema = z.object({
+  styleType: z.enum(['primary', 'secondary', 'default', 'neutral', 'info', 'success', 'warning', 'danger']).optional(),
+  widthStyle: z.enum(['full', 'fit']).optional(),
+  className: z.string().optional(),
+  type: z.string().optional(),
+  id: z.string().optional(),
+  key: z.string().optional(),
+  disable: z.boolean().optional(),
+})
 export function ButtonRoot({ id, type = 'submit', styleType = 'primary', onClick, children, widthStyle = 'fit', className = ' ', disabled=false, ...restButtonProps }: ButtonProps) {
 
   return (

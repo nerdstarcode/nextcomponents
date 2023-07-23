@@ -4,9 +4,12 @@ import { twMerge } from "tailwind-merge";
 export interface ButtonIconsProps {
     icon: ElementType;
     className?: string;
+    id?: string;
+    key?: string;
+    description?: string
 }
-export function ButtonIcons({ icon: Icon, className }: ButtonIconsProps) {
+export function ButtonIcon({ icon: Icon, className, key, id, description}: ButtonIconsProps) {
     return (
-        <Icon className={twMerge('group-disabled:cursor-not-allowed', className)} />
+        <Icon id={id} key={key} aria-description={description} className={twMerge('group-disabled:cursor-not-allowed', className)} />
     )
 }
