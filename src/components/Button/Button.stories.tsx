@@ -32,15 +32,7 @@ interface ButtonPropsStory extends ButtonContentProps, ButtonProps, ButtonIconsP
 const meta: Meta<ButtonPropsStory> = {
   title: 'Button/Button',
   // @ts-ignore
-  component: Button.Root,
-  subcomponents: {
-    // @ts-ignore
-    'Button.Icon': Button.Icon,
-    // @ts-ignore
-    'Button.Content': Button.Content,
-    // @ts-ignore
-    'Button.ToggleRoot': Button.ToggleRoot,
-  },
+  component: Button,
   args: {
     children: 'Eu sou um botão',
     name: 'button'
@@ -118,4 +110,5 @@ export const ButtonToggle: Story = {
   args: {
     icon: AtSign,
   },
+
 };

@@ -1,6 +1,6 @@
-import { ButtonContent, ButtonContentProps } from './ButtonContent'
 import { Meta, StoryObj } from '@storybook/react'
-import { AtSign, Accessibility, Activity, Airplay } from 'lucide-react';
+import MultiStepForm from '.';
+import { ThemeProvider } from '../../contexts/ThemeContext';
 const StorieMarkdown = {
   Primary: `
 ## Botões Primário, Secundário e de Ação
@@ -16,37 +16,22 @@ Os botões padrão são menos arrojados e podem ser usados ​​para ações me
 Ações secundárias são ações como “Cancelar”, “Voltar” ou “Reiniciar”. São ações alternativas menos importantes, que muitas vezes têm consequências negativas quando usadas acidentalmente. Por exemplo, pressionar “Redefinir” apaga todos os dados inseridos pelo usuário.
 `,
 }
-export default {
-  title: 'Button/Composition/Content',
-  component: ButtonContent,
-  args: {
-    icon: AtSign,
-    id: 'story-button-icon',
-    description: 'icon que acompanha o conteudo do botão',
-    key: 'story-button-icon',
-    children: 'Eu sou o que tá dentro do botão'
-  },
-  argTypes: {
-    id: {
-      description: 'Id do elemento html',
-    },
-    children:{
-      description: 'Conteudo do elemento'
-    },
-    className: {
-      description: 'Classes que são adicionadas/substituidas pelas padrões do icon para maior flexibilidade'
-    },
-    description: {
-      description: 'Descrição do elemento para acessibilidade'
-    },
-    key: {
-      description: 'Identificação dos elementos no react'
-    }
-  }
-} as Meta<ButtonContentProps>
 
+const meta: Meta<any> = {
+  title: 'Forms/MultiStep',
+  component: MultiStepForm,
+  decorators: [
+    (Story) => (
+      <ThemeProvider>
+        <Story/>
+      </ThemeProvider >
+    ),
+  ]
+};
 
-export const AtSignIcon: StoryObj<ButtonContentProps> = {
+export default meta;
+type Story = StoryObj<any>;
+export const ButtonPrimary: Story = {
   parameters: {
     docs: {
       description: {
@@ -54,4 +39,4 @@ export const AtSignIcon: StoryObj<ButtonContentProps> = {
       },
     },
   },
-}
+};
