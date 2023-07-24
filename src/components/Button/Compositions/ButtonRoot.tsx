@@ -20,7 +20,7 @@ export function ButtonRoot({ id, type = 'submit', styleType = 'primary', onClick
 
   return (
     <button
-      data-testid={id}
+      id={id}
       type={type}
       onClick={onClick}
       disabled={disabled}

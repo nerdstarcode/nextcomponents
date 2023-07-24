@@ -1,5 +1,12 @@
-import { Button, ButtonProps } from './index'
+import { Button } from './'
 import { Meta, StoryObj } from '@storybook/react'
+import { ButtonContentProps } from './Compositions/ButtonContent';
+import { ButtonIconsProps } from './Compositions/ButtonIcon';
+import { ButtonProps, ButtonPropsSchema } from './Compositions/ButtonRoot';
+import { Accessibility, Activity, Airplay, AtSign } from 'lucide-react';
+import { ButtonToggleRootProps, ButtonToggleRootPropsSchema } from './Compositions/ButtonToggleRoot';
+const exampleIcons = { atsign: AtSign, accessibility: Accessibility, activity: Activity, airplay: Airplay };
+const typeButton = { submit: 'submit', button: 'button', reset: 'reset' };
 const StorieMarkdown = {
   Primary: `
 ## Botões Primário, Secundário e de Ação
@@ -15,52 +22,55 @@ Os botões padrão são menos arrojados e podem ser usados ​​para ações me
 Ações secundárias são ações como “Cancelar”, “Voltar” ou “Reiniciar”. São ações alternativas menos importantes, que muitas vezes têm consequências negativas quando usadas acidentalmente. Por exemplo, pressionar “Redefinir” apaga todos os dados inseridos pelo usuário.
 `,
 }
-const typeButton = {submit:'submit', button:'button', reset:'reset'};
-export default {
-  title: 'Components/Atoms/Button',
-  component: Button,
+// @ts-ignore
+interface ButtonPropsStory extends ButtonContentProps, ButtonProps, ButtonIconsProps, ButtonToggleRootProps {
+  className: string[],
+  key: string[],
+  id: string[],
+  describtion: string[]
+}
+const meta: Meta<ButtonPropsStory> = {
+  title: 'Button/Button',
+  // @ts-ignore
+  component: Button.Root,
+  subcomponents: {
+    // @ts-ignore
+    'Button.Icon': Button.Icon,
+    // @ts-ignore
+    'Button.Content': Button.Content,
+    // @ts-ignore
+    'Button.ToggleRoot': Button.ToggleRoot,
+  },
   args: {
-    id: 'story-button',
-    type: 'submit',
-    styleType: 'primary',
-    children: 'eu sou um botão',
-    widthStyle: 'full',
+    children: 'Eu sou um botão',
+    name: 'button'
   },
   argTypes: {
-    onClick: { action: 'clicked' },
-    onMouseOver: { action: 'hovered' },
-    id: {
-      description: 'Id do elemento html',
-    },
-    styleType: {
-      description: 'Estilo do botão',
-      control: {
-        type: 'inline-radio',
-      }
-    },
-    type: {
+    icon: {
       description: 'Funcionalidade do botão',
-      options: Object.keys(typeButton), 
-      mapping: typeButton, 
+      options: Object.keys(exampleIcons),
+      mapping: exampleIcons,
       control: {
-        type: 'inline-radio',
-        labels: typeButton
-      }
+        type: 'select',
+        labels: Object.values(typeButton)
+      },
     },
-    children: {
-      description: 'Uma forma de adicionar ícones de uma forma mais flexivel',
-    },
-    widthStyle: {
-      description: 'Uma forma de deixar os botões mais editáveis sem precisar de mais divs',
-      control: {
-        type: 'inline-radio',
-      }
-    },
-  }
-} as Meta<ButtonProps>
+  },
+};
 
-
-export const Primary: StoryObj<ButtonProps> = {
+export default meta;
+type Story = StoryObj<ButtonPropsStory>;
+ButtonPropsSchema
+export const ButtonPrimary: Story = {
+  render: (args) =>
+    <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
+      <Button.Content children={args.children} className={args.className?.[1]} />
+    </Button.Root>,
+  args: {
+    styleType: 'primary',
+    icon: AtSign,
+  },
   parameters: {
     docs: {
       description: {
@@ -68,10 +78,16 @@ export const Primary: StoryObj<ButtonProps> = {
       },
     },
   },
-}
-export const Secondary: StoryObj<ButtonProps> = {
+};
+export const ButtonSecondary: Story = {
+  render: (args) =>
+    <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
+      <Button.Content children={args.children} className={args.className?.[1]} />
+    </Button.Root>,
   args: {
     styleType: 'secondary',
+    icon: AtSign,
   },
   parameters: {
     docs: {
@@ -80,4 +96,26 @@ export const Secondary: StoryObj<ButtonProps> = {
       },
     },
   },
-}
+};
+
+
+export const ButtonWithIcon: Story = {
+  render: (args) =>
+    <Button.Root {...ButtonPropsSchema.parse(args) as ButtonProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
+      <Button.Content children={args.children} className={args.className?.[1]} />
+    </Button.Root>,
+  args: {
+    icon: AtSign,
+  },
+};
+export const ButtonToggle: Story = {
+  render: (args) =>
+    <Button.ToggleRoot {...ButtonToggleRootPropsSchema.parse(args) as ButtonToggleRootProps} >
+      {args?.icon && <Button.Icon icon={args?.icon} className={args.className?.[2]} />}
+      <Button.Content name={args.name} children={args.children} className={args.className?.[1]} />
+    </Button.ToggleRoot>,
+  args: {
+    icon: AtSign,
+  },
+};
