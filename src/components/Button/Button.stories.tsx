@@ -61,7 +61,6 @@ export const ButtonPrimary: Story = {
     </Button.Root>,
   args: {
     styleType: 'primary',
-    icon: AtSign,
   },
   parameters: {
     docs: {
@@ -79,7 +78,6 @@ export const ButtonSecondary: Story = {
     </Button.Root>,
   args: {
     styleType: 'secondary',
-    icon: AtSign,
   },
   parameters: {
     docs: {
@@ -108,7 +106,6 @@ export const ButtonToggle: Story = {
       <Button.Content name={args.name} children={args.children} className={args.className?.[1]} />
     </Button.ToggleRoot>,
   args: {
-    icon: AtSign,
   },
 
 };

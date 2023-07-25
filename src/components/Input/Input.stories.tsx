@@ -54,7 +54,7 @@ export default meta;
 type Story = StoryObj<InputPropsStory>;
 
 
-export const InputPrimary: Story = {
+export const InputText: Story = {
   render: (args) =>
     <Input.Root>
       <Input.Label>
