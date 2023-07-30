@@ -35,7 +35,7 @@ const meta: Meta<ButtonPropsStory> = {
   component: Button,
   args: {
     children: 'Eu sou um botão',
-    name: 'button'
+    name: 'button',
   },
   argTypes: {
     icon: {
@@ -44,7 +44,13 @@ const meta: Meta<ButtonPropsStory> = {
       mapping: exampleIcons,
       control: {
         type: 'select',
-        labels: Object.values(typeButton)
+      },
+    },
+    styleType: {
+      description: 'Funcionalidade do botão',
+      options: ['primary', 'secondary', 'neutral', 'info', 'danger', 'default', 'success', 'warning'],
+      control: {
+        type: 'select',
       },
     },
   },
@@ -107,5 +113,13 @@ export const ButtonToggle: Story = {
     </Button.ToggleRoot>,
   args: {
   },
+  argTypes: {
+    styleType: {
+      options: [undefined],
+      control: {
+        type: null
+      }
+    }
+  }
 
 };

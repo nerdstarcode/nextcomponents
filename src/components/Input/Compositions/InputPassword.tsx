@@ -1,26 +1,28 @@
 import { ZodError, ZodErrorTratative } from "../../../utils/ZodErrorsTratative.utils";
 import { useFormContext } from "../../../contexts/FormContextContext";
-import { ElementType, InputHTMLAttributes } from "react"
+import { ElementType, InputHTMLAttributes, useState } from "react"
 import { twMerge } from "tailwind-merge"
 import { ZodTypeAny, z } from "zod"
+import { Eye, EyeOff } from "lucide-react";
 
-// disabled – disable a text input to signify something else needs to happen first.
-// max – specify the maximum value for a text input.
-// maxlength – maximum amount of characters for a text input.
-// min – minimum value for a text input.
-// pattern – specifies a certain expression to check against (e.g. phone numbers).
-// readonly – text input cannot be changed.
-// required – mandatory text input.
-// value – default value for a text input.
 export interface InputTextProps extends InputHTMLAttributes<HTMLInputElement> {
   zodSchema?: ZodTypeAny;
   formId?: string;
   icon?: ElementType;
   verification?: string;
 }
+interface FormContextData {
+  formId: string;
+  data: Record<string, any> | null;
+  issues: Record<string, string> | null;
+  verification?: Record<string, any>;
+  verificationID?: string;
+}
 const stringInput = z.string().max(300)
-export function InputText({ className, maxLength = 300, zodSchema = stringInput, formId, id, icon: Icon, placeholder, verification, ...restInputProps }: InputTextProps) {
+export function InputPassword({ className, maxLength = 300, zodSchema = stringInput, formId, id, icon: Icon, placeholder, verification, ...restInputProps }: InputTextProps) {
   const { formContext, setFormContextData } = useFormContext();
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleBlur = ({ target }: any) => {
     if (zodSchema && formId && id) {
       const result = zodSchema.safeParse(target.value);
@@ -69,6 +71,7 @@ export function InputText({ className, maxLength = 300, zodSchema = stringInput,
       }
     }
   };
+
   const existsErrorOnInput = formId && id && formContext?.[formId]?.issues?.[id]
 
   return (
@@ -76,16 +79,25 @@ export function InputText({ className, maxLength = 300, zodSchema = stringInput,
       {Icon &&
         <span className="absolute flex justify-center items-center w-10 h-full">
           {existsErrorOnInput ?
-            <span className={`font-extrabold text-lg text-brand-danger`}>!</span>
+            <span className={`font-extrabold text-lg text-brand-danger peer`}>!</span>
             :
-            <Icon className={twMerge(`max-w-[20px] text-brand-info`)} />
+            <Icon className={twMerge(`max-w-[20px] text-brand-info peer`)} />
           }
         </span>
       }
+      <button type='button' onClick={() => { setShowPassword(!showPassword) }} className="group absolute right-0 flex justify-center items-center w-10 h-full">
+        {showPassword ?
+          <EyeOff className={twMerge(`max-w-[20px] text-gray dark:text-gray-light pointer-events-none group-hover:text-brand-info`)} />
+          :
+          <Eye className={twMerge(`max-w-[20px] text-gray dark:text-gray-light pointer-events-none group-hover:text-brand-info`)} />
+        }
+
+      </button>
       <input
         id={id}
+        type={showPassword ? 'text' : 'password'}
         maxLength={maxLength}
-        className={'' + twMerge(`
+        className={twMerge(`
         flex 
         w-full
         h-10
@@ -102,6 +114,7 @@ export function InputText({ className, maxLength = 300, zodSchema = stringInput,
         focus-within:border-2
         focus-within:border-brand-primary
         rounded
+        peer
         ${Icon !== undefined ? 'pl-10 pr-4' : 'px-4'}
         py-2
         placeholder:italic
@@ -116,6 +129,7 @@ export function InputText({ className, maxLength = 300, zodSchema = stringInput,
         onSubmit={handleBlur}
         {...restInputProps}
       />
+
     </div>
 
   )
