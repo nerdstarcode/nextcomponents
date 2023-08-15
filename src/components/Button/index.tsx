@@ -9,3 +9,10 @@ export const Button = {
   Icon: ButtonIcon,
   ToggleRoot: ButtonToggleRoot
 }
+export function ButtonExample() {
+  return (
+    <Button.Root>
+      <Button.Content> aaaaaaaaaaaa</Button.Content>
+    </Button.Root>
+  )
+}

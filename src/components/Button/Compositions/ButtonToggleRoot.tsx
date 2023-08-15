@@ -19,7 +19,7 @@ export const ButtonToggleRootPropsSchema = z.object({
   disable: z.boolean().optional(),
   name: z.string().optional(),
 })
-export function ButtonToggleRoot({ id, name, styleType = 'primary', onChange, children, widthStyle = 'fit', className = ' ', ...restLabelProperties }: ButtonToggleRootProps) {
+export function ButtonToggleRoot({ id, name, styleType = 'primary', onChange, children, widthStyle = 'fit', className, ...restLabelProperties }: ButtonToggleRootProps) {
 
   return (
     <div className={`group flex w-${widthStyle}`}>

@@ -5,7 +5,7 @@ import { FormDataProvider } from "../../contexts/FormContextContext";
 import { InputDescribe } from "./Compositions/InputDescribe";
 import { InputLabel } from "./Compositions/InputLabel";
 import { InputRoot } from "./Compositions/InputRoot";
-import { Mail, User } from "lucide-react";
+import { LockIcon, Mail, User } from "lucide-react";
 import { InputPassword } from "./Compositions/InputPassword";
 import { Form } from "../Form";
 import { DataContextProvider } from "@/contexts/DataContext";
@@ -16,7 +16,7 @@ export const Input = {
   Describe: InputDescribe,
   Text: InputText,
   Password: InputPassword,
-  Context: DataContextProvider,
+  Context: FormDataProvider,
 }
 
 export function InputRootMock() {
@@ -24,40 +24,39 @@ export function InputRootMock() {
     <>
       <Form.Context>
         {[
-          <Input.Context key={'context-email'}>
-
+          <fieldset key={'context-email'}>
             <Input.Root key={'input1'}>
               <Input.Label>
                 E-mail
               </Input.Label>
-              <Input.Text verification="email" placeholder="Ex: name.surname@global.ntt" icon={Mail} formId="texto-teste" id="email" zodSchema={z.string().email()} />
+              <Input.Text verification="email" placeholder="Ex: name.surname@global.ntt" formId="texto-teste" id="email" zodSchema={z.string().email()} />
               <Input.Describe formId="texto-teste" elementId="email" />
             </Input.Root>
             <Input.Root key={'input2'}>
               <Input.Label>
-                E-mail
+                Repeat E-mail
               </Input.Label>
-              <Input.Text verification="email" placeholder="Ex: name.surname@global.ntt" icon={Mail} formId="texto-teste" id="email2" zodSchema={z.string().email()} />
-              <Input.Describe formId="texto-teste" elementId="email2" />
+              <Input.Text verification="email" placeholder="Ex: name.surname@global.ntt" formId="texto-teste" id="email-validate" zodSchema={z.string().email()} />
+              <Input.Describe formId="texto-teste" elementId="email-validate" />
             </Input.Root>
-          </Input.Context>
+          </fieldset>
           ,
-          <Input.Context key={'context-password'}>
+          <fieldset key={'context-password'}>
             <Input.Root key={'password'}>
               <Input.Label>
                 Password
               </Input.Label>
-              <Input.Password verification="password" placeholder="Ex: Name" icon={User} formId="texto-teste" id="password" zodSchema={z.string().min(6)} />
+              <Input.Password icon={LockIcon} verification="password" placeholder="*****" formId="texto-teste" id="password" zodSchema={z.string().min(6)} />
               <Input.Describe formId="texto-teste" elementId="password" />
             </Input.Root>
-            <Input.Root key={'password2'}>
+            {/* <Input.Root key={'password2'}>
               <Input.Label>
-                Password
+                Repeat Password
               </Input.Label>
-              <Input.Password verification="password" placeholder="Ex: Name" icon={User} formId="texto-teste" id="passwordVerify" zodSchema={z.string().min(6)} />
-              <Input.Describe formId="texto-teste" elementId="passwordVerify" />
-            </Input.Root>
-          </Input.Context>
+              <Input.Password verification="password" placeholder="*****" formId="texto-teste" id="password-validate" zodSchema={z.string().min(6)} />
+              <Input.Describe formId="texto-teste" elementId="password-validate" />
+            </Input.Root> */}
+          </fieldset>
         ]}
         <Form.Preview />
       </Form.Context>
