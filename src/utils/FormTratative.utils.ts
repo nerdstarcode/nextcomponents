@@ -8,16 +8,17 @@ interface FormData {
   verification?: Record<string, Record<string, string> | true>;
   verificationID?: string
 }
-
 export class FormHandler {
   private zodSchema: ZodSchema | undefined;
   private formId: string | undefined;
   private id: string | undefined;
   private verification: string | undefined;
-  private setFormContextData: (data: FormData) => void;
+  private formContext: any;
+  private setFormContextData: any;
 
   constructor(
-    setFormContextData: (data: FormData) => void,
+    formContext: any,
+    setFormContextData: any,
     zodSchema?: ZodSchema,
     formId?: string,
     id?: string,
@@ -40,44 +41,62 @@ export class FormHandler {
     return dataUpdate;
   }
 
-  public updateFormWithVerification(result: any): FormData | undefined {
+  private updateFormWithError(result: any) {
+    const errorTratative = new ZodErrorTratative(result?.error as ZodError);
+    const errorMessage = errorTratative.getErrorMessage();
     if (this.verification) {
-      const verificationUpdate: FormData = {
-        formId: this.formId!,
-        verification: { [this.verification]: { [this.id!]: result.data } },
+      this.setFormContextData({
+        formId: this.formId,
+        verification: { [this.verification]: { [this.id!]: null } },
         verificationID: this.verification,
-      };
-      return verificationUpdate;
+      });
     }
-    return undefined;
+    this.setFormContextData({ formId: this.formId, data: { [this.id!]: null }, issues: { [this.id!]: errorMessage } });
   }
 
-  public updateFormWithError(result: any): FormData {
-    const errorTratative = new ZodErrorTratative(result?.error);
-    console.log(this.formId, this.id, errorTratative.getErrorMessage());
-    const errorUpdate: FormData = {
-      formId: this.formId!,
-      data: { [this.id!]: null },
-      issues: { [this.id!]: errorTratative.getErrorMessage() },
-    };
-    return errorUpdate;
+  private updateFormWithVerification(result: any) {
+    const newData = { [this.id!]: result.data };
+    this.setFormContextData({ formId: this.formId, data: newData, issues: { ...newData, [this.id!]: null } });
+    this.id
+    if (this.verification) {
+      this.setFormContextData({
+        formId: this.formId,
+        verification: { [this.verification]: newData },
+        verificationID: this.verification,
+      });
+      const verificationValidateObject = {
+        ...this.formContext?.[this.formId!]?.verification?.[this.verification],
+        [this.id!]: result.data
+      }
+      const idKeysVerificationObjext = Object.keys(verificationValidateObject || {})
+      if (idKeysVerificationObjext.length > 0) {
+        const valuesVerificationObjext = Object.values(verificationValidateObject!)
+        const firstValue = valuesVerificationObjext[0];
+        if (valuesVerificationObjext.every((value) => value === firstValue)) {
+          idKeysVerificationObjext.map((elementID) => {
+            this.setFormContextData({ formId: this.formId, issues: { [elementID]: null } });
+          })
+        } else {
+          idKeysVerificationObjext.map((elementID) => {
+            this.setFormContextData({ formId: this.formId, issues: { [elementID]: `${this.verification} must be the same` } });
+          })
+        }
+      }
+    }
   }
 
-  public handleBlur({target}: any): void {
+  public handleBlur({ target }: any) {
     if (this.zodSchema && this.formId && this.id) {
       const result = this.zodSchema.safeParse(target.value);
       if (result.success) {
-        const dataUpdate = this.updateFormWithData(result);
-        this.setFormContextData(dataUpdate);
-        console.log(result);
+        const newData = { [this.id]: result.data };
+        this.setFormContextData({ formId: this.formId, data: newData, issues: { ...newData, [this.id]: null } });
 
-        const verificationUpdate = this.updateFormWithVerification(result);
-        if (verificationUpdate) {
-          this.setFormContextData(verificationUpdate);
+        if (this.verification) {
+          this.updateFormWithVerification(result)
         }
       } else {
-        const errorUpdate = this.updateFormWithError(result);
-        this.setFormContextData(errorUpdate);
+        this.updateFormWithError(result)
       }
     }
   }

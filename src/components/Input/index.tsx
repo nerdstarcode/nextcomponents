@@ -18,10 +18,15 @@ export const Input = {
   Password: InputPassword,
   Context: FormDataProvider,
 }
-
+const irineu = [ {name:"irineu", email: "irineu@gmail.com"}, {name:"1aws", email: "irineu@gmail.com"}]
 export function InputRootMock() {
   return (
     <>
+    {irineu.map((user)=>{
+      return (<div className="bg-red-800 h-20 w-20">
+        {user.name}
+      </div>)
+    })}
       <Form.Context>
         {[
           <fieldset key={'context-email'}>
@@ -49,13 +54,13 @@ export function InputRootMock() {
               <Input.Password icon={LockIcon} verification="password" placeholder="*****" formId="texto-teste" id="password" zodSchema={z.string().min(6)} />
               <Input.Describe formId="texto-teste" elementId="password" />
             </Input.Root>
-            {/* <Input.Root key={'password2'}>
+            <Input.Root key={'password2'}>
               <Input.Label>
                 Repeat Password
               </Input.Label>
               <Input.Password verification="password" placeholder="*****" formId="texto-teste" id="password-validate" zodSchema={z.string().min(6)} />
               <Input.Describe formId="texto-teste" elementId="password-validate" />
-            </Input.Root> */}
+            </Input.Root>
           </fieldset>
         ]}
         <Form.Preview />

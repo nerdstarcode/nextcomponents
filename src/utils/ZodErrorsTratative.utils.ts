@@ -14,7 +14,7 @@ export interface ZodError {
 export class ZodErrorTratative {
   private error: ZodError;
 
-  constructor(error: ZodError) {
+  constructor(error: any) {
     this.error = error;
   }
 
