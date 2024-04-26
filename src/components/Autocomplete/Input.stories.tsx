@@ -1,20 +1,8 @@
-import { Autocomplete, AutocompleteInput } from './'
-// import { InputDescribeProps } from './Compositions/InputDescribe'
-// import { InputRootProps } from './Compositions/InputRoot'
-// import { InputLabelProps } from './Compositions/InputLabel'
-// import { InputTextProps } from './Compositions/InputText'
+import { AutocompleteInput } from './'
 import { Meta, StoryObj } from '@storybook/react'
 
-import { Accessibility, Activity, Airplay, AtSign } from 'lucide-react';
-import { z } from 'zod'
 import { AutoCompleteDTO, DefaultTemplateOptions } from './DTO/autocomplete.dto';
-const exampleIcons = { none: undefined, atsign: AtSign, accessibility: Accessibility, activity: Activity, airplay: Airplay };
-const zodExamples = { 'z.string().min(6).max(300)': z.string().min(6).max(300), 'z.string().email()': z.string().email(), 'z.string().url()': z.string().url(), "z.string().includes('iri')": z.string().includes('iri') };
-const typeInput = { submit: 'submit', Input: 'Input', reset: 'reset' };
 
-// @ts-ignore
-interface InputPropsStory {
-}
 const meta: Meta<AutoCompleteDTO> = {
   title: 'Input/Autocomplete',
   // @ts-ignore
