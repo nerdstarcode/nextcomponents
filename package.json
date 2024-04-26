@@ -41,6 +41,7 @@
     "@storybook/react": "^7.1.0",
     "@storybook/testing-library": "^0.2.0",
     "eslint-plugin-storybook": "^0.6.12",
-    "storybook": "^7.1.0"
+    "storybook": "^7.1.0",
+    "tailwind-scrollbar": "^3.1.0"
   }
 }

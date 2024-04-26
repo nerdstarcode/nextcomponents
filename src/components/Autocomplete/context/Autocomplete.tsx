@@ -1,11 +1,11 @@
 'use client'
 import { createContext, useContext, useState, ReactNode, MutableRefObject, LegacyRef, ChangeEvent, useRef } from "react";
+import { OptionsDTO } from "../DTO/autocomplete.dto";
 
 interface AutoComplete {
   data: Record<string, string | null>;
   issues: Record<string, string | null>;
 }
-interface OptionsDTO { value: string | number, label: string }
 
 interface AutocompleteContextDTO {
   isOpen?: boolean;
